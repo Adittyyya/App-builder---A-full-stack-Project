@@ -9,13 +9,18 @@ interface WorkspacePageProps {
 
 const WorkspacePage = async ({searchParams}: WorkspacePageProps) => {
 
-  const user = await auth();
-  if(!user) redirect("/");
+  const { userId }= await auth();
+  if(!userId) redirect("/");
 
   const {prompt, id} = await searchParams;
 
 
-  return <WorkspaceClient/>
+  return <WorkspaceClient
+  initialPrompt={prompt ?? null}
+  userCredits={10}
+  userId={userId}
+  userPlan="free"
+  />
 }
 
 export default WorkspacePage
